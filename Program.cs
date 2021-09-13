@@ -27,7 +27,7 @@ namespace symnovel_ci
 
         static void Build()
         {
-            IEnumerable files = Directory.EnumerateFiles("repo\\src");
+            IEnumerable files = Directory.EnumerateFiles("repo\\src", "*.*", SearchOption.AllDirectories);
             foreach(var p in files)
             {
                 Console.WriteLine(p);

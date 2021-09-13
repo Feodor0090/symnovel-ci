@@ -5,13 +5,20 @@ using System.IO.Compression;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace snci
+namespace symnovel_ci
 {
-    class S40Setup
+    sealed class S40Setup
     {
-        public static void UnpackSDK()
-        {
+        public static void UnpackMIDPClasses() => UnpackZip("lib.zip");
 
+        private static void UnpackZip(string name)
+        {
+            FileStream stream = File.OpenRead(name);
+            using (ZipArchive classes = new ZipArchive(stream, ZipArchiveMode.Read, false))
+            {
+                Console.WriteLine("Extracting " + stream.Name);
+                classes.ExtractToDirectory("lib");
+            }
         }
     }
 }

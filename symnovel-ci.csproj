@@ -6,4 +6,10 @@
     <RootNamespace>symnovel_ci</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Update="lib.zip">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

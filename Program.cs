@@ -6,7 +6,9 @@ namespace symnovel_ci
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Console.WriteLine("Job started.");
+            Console.WriteLine();
+            S40Setup.UnpackMIDPClasses();
         }
     }
 }

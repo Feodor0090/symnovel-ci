@@ -13,6 +13,8 @@ namespace symnovel_ci
         public static void UnpackJDK() => UnpackZip("jdk");
         public static void UnpackMIDPClasses() => UnpackZip("lib");
 
+        public static bool checkRepo() => Directory.Exists("repo");
+
         private static void UnpackZip(string name)
         {
             FileStream stream = File.OpenRead(name+".zip");

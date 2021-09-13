@@ -8,7 +8,8 @@ namespace symnovel_ci
         {
             Console.WriteLine("Job started.");
             Console.WriteLine();
-            S40Setup.UnpackMIDPClasses();
+            EnvSetup.UnpackJDK();
+            EnvSetup.UnpackMIDPClasses();
         }
     }
 }

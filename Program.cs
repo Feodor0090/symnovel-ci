@@ -20,17 +20,21 @@ namespace symnovel_ci
             Pack();
         }
 
-        static String getJavaBuildCmd(String fileName)
+        static string getJavaBuildCmd(string fileName)
         {
             return "jdk\\bin\\javac.exe -bootclasspath \\lib -sourcepath repo\\src -d bin "+fileName;
         }
 
         static void Build()
         {
-            IEnumerable files = Directory.EnumerateFiles("repo\\src", "*.*", SearchOption.AllDirectories);
+            IEnumerable<string> files = Directory.EnumerateFiles("repo\\src", "*.*", SearchOption.AllDirectories);
             foreach(var p in files)
             {
-                Console.WriteLine(p);
+                var cmd = getJavaBuildCmd(p);
+                Process compiler = Process.Start(cmd);
+                StreamReader output = compiler.StandardOutput;
+                compiler.WaitForExit();
+                Console.WriteLine(output.ReadToEnd());
             }
         }
 

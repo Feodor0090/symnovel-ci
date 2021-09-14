@@ -10,7 +10,7 @@ namespace symnovel_ci
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Job started.");
+            Console.WriteLine("Working from "+ Environment.CurrentDirectory);
             Console.WriteLine();
             EnvSetup.UnpackJDK();
             EnvSetup.UnpackMIDPClasses();
@@ -20,9 +20,9 @@ namespace symnovel_ci
             Pack();
         }
 
-        static string getJavaBuildCmd(string fileName)
+        static string getJavaBuildCmd(string jdkPath, string fileName)
         {
-            return "jdk\\bin\\javac.exe -bootclasspath \\lib -sourcepath repo\\src -d bin "+fileName;
+            return jdkPath+" -bootclasspath \\lib -sourcepath repo\\src -d bin "+fileName;
         }
 
         static void Build()
@@ -30,7 +30,7 @@ namespace symnovel_ci
             IEnumerable<string> files = Directory.EnumerateFiles("repo\\src", "*.*", SearchOption.AllDirectories);
             foreach(var p in files)
             {
-                var cmd = getJavaBuildCmd(p);
+                var cmd = getJavaBuildCmd(Environment.CurrentDirectory+"\\jdk\\bin\\javac.exe", p);
                 Process compiler = Process.Start(cmd);
                 StreamReader output = compiler.StandardOutput;
                 compiler.WaitForExit();

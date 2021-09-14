@@ -23,7 +23,7 @@ namespace symnovel_ci
         static string getJavaBuildParams(string fileName)
         {
             string wd = Environment.CurrentDirectory;
-            return "-encoding UTF-8 -bootclasspath " + wd+"\\lib -sourcepath "+wd+"\\repo\\src -d bin "+fileName;
+            return "-encoding UTF-8 -bootclasspath lib -sourcepath "+wd+"\\repo\\src -d bin "+fileName;
         }
 
         static void Build()

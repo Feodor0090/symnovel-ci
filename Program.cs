@@ -14,27 +14,34 @@ namespace symnovel_ci
             Console.WriteLine();
             EnvSetup.UnpackJDK();
             EnvSetup.UnpackMIDPClasses();
-            if (!EnvSetup.checkRepo()) throw new DirectoryNotFoundException();
+            if (!EnvSetup.checkRepo()) throw new DirectoryNotFoundException("The repository is not cloned!");
             Build();
             Verify();
             Pack();
         }
 
-        static string getJavaBuildCmd(string jdkPath, string fileName)
+        static string getJavaBuildParams(string fileName)
         {
-            return jdkPath+" -bootclasspath \\lib -sourcepath repo\\src -d bin "+fileName;
+            string wd = Environment.CurrentDirectory;
+            return "-encoding UTF-8 -bootclasspath " + wd+"\\lib -sourcepath "+wd+"\\repo\\src -d bin "+fileName;
         }
 
         static void Build()
         {
+            string wd = Environment.CurrentDirectory;
             IEnumerable<string> files = Directory.EnumerateFiles("repo\\src", "*.*", SearchOption.AllDirectories);
             foreach(var p in files)
             {
-                var cmd = getJavaBuildCmd(Environment.CurrentDirectory+ "\\jdk\\jdk1.5.0_22\\bin\\javac.exe", p);
-                Process compiler = Process.Start(cmd);
+                var opts = getJavaBuildParams(p);
+                Process compiler = new Process();
+                compiler.StartInfo.UseShellExecute = false;
+                compiler.StartInfo.RedirectStandardOutput = true;
+                compiler.StartInfo.FileName = wd + "\\jdk\\jdk1.5.0_22\\bin\\javac.exe";
+                compiler.StartInfo.Arguments = opts;
+                compiler.Start();
                 StreamReader output = compiler.StandardOutput;
-                compiler.WaitForExit();
                 Console.WriteLine(output.ReadToEnd());
+                compiler.WaitForExit();
             }
         }
 

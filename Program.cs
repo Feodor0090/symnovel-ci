@@ -30,7 +30,7 @@ namespace symnovel_ci
             IEnumerable<string> files = Directory.EnumerateFiles("repo\\src", "*.*", SearchOption.AllDirectories);
             foreach(var p in files)
             {
-                var cmd = getJavaBuildCmd(Environment.CurrentDirectory+"\\jdk\\bin\\javac.exe", p);
+                var cmd = getJavaBuildCmd(Environment.CurrentDirectory+ "\\jdk\\jdk1.5.0_22\\bin\\javac.exe", p);
                 Process compiler = Process.Start(cmd);
                 StreamReader output = compiler.StandardOutput;
                 compiler.WaitForExit();

@@ -17,6 +17,7 @@ namespace symnovel_ci
             if (!EnvSetup.checkRepo()) throw new DirectoryNotFoundException("The repository is not cloned!");
             Build();
             Verify();
+            CopyRes();
             Pack();
         }
 
@@ -47,12 +48,17 @@ namespace symnovel_ci
 
         static void Verify()
         {
+            //TODO run preverifyer
+        }
 
+        static void CopyRes()
+        {
+            //TODO copy res folder to bin
         }
 
         static void Pack()
         {
-
+            //TODO create jar
         }
     }
 }
